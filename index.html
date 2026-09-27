@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Newsletter · Galerie Amira Sliman</title>
+<style>
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-light.ttf) format('truetype');font-weight:300}
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-roman.ttf) format('truetype');font-weight:400}
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-bold.ttf) format('truetype');font-weight:700}
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-black.ttf) format('truetype');font-weight:900}
+:root{--ink:#111;--paper:#fff;--mute:#757575;--soft:#3b3b3b;--line:#e3e3e3;--m:clamp(16px,5vw,72px)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:AG,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:300;color:var(--ink);background:var(--paper);
+  line-height:1.42;font-size:clamp(15px,1.05vw,17px);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+a{color:inherit}
+.lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+header{display:flex;justify-content:space-between;gap:16px;padding:clamp(26px,4vh,50px) var(--m) 0}
+main{padding:0 var(--m) 80px}
+h1{margin-top:clamp(48px,9vh,110px);font-weight:900;letter-spacing:-.035em;line-height:.86;font-size:clamp(48px,11vw,150px)}
+.maj{margin-top:18px;color:var(--soft)}
+.camp{margin-top:clamp(48px,8vh,96px);padding-top:16px;border-top:1px solid var(--line)}
+.camp h2{margin-top:8px;font-weight:700;font-size:clamp(20px,2vw,28px);letter-spacing:-.015em}
+.camp .obj{color:var(--soft);margin-top:4px}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:28px clamp(20px,3vw,48px);margin-top:32px}
+.n{font-weight:900;font-size:clamp(40px,5vw,72px);letter-spacing:-.03em;line-height:.9}
+.n small{font-weight:400;font-size:.36em;letter-spacing:0;color:var(--soft);margin-left:.35em}
+.chiffres .lbl{margin-top:10px;display:block}
+.barre{height:2px;background:var(--line);margin-top:30px;position:relative}
+.barre i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.vide,.err{margin-top:40px;color:var(--soft)}
+.apercu{margin-top:clamp(64px,10vh,120px);padding-top:16px;border-top:1px solid var(--line)}
+.cadre{margin-top:24px;display:flex;gap:clamp(20px,4vw,56px);align-items:flex-start;flex-wrap:wrap}
+iframe{border:1px solid var(--line);background:#fff}
+.tel{width:390px;max-width:100%;height:760px}
+.ord{width:640px;max-width:100%;height:760px}
+.note{margin-top:48px;max-width:60ch;color:var(--soft);font-size:14px}
+@media(max-width:700px){.ord{display:none}.tel{width:100%}}
+</style>
+</head>
+<body>
+<header><span class="lbl">Galerie Amira Sliman</span><span class="lbl">Newsletter</span></header>
+<main>
+  <h1>Chiffres.</h1>
+  <p class="maj" id="maj">Chargement…</p>
+  <div id="camps"></div>
+
+  <section class="apercu">
+    <span class="lbl">Aperçu de la newsletter</span>
+    <div class="cadre">
+      <div><span class="lbl">Téléphone</span><br><iframe class="tel" src="newsletter.html" title="Aperçu téléphone" loading="lazy"></iframe></div>
+      <div><span class="lbl">Ordinateur</span><br><iframe class="ord" src="newsletter.html" title="Aperçu ordinateur" loading="lazy"></iframe></div>
+    </div>
+  </section>
+
+  <p class="note">Ouvertures : une estimation. Apple Mail charge les images tout seul et compte comme ouvert ; qui bloque les images ne compte pas.
+  Une personne qui se désinscrit est effacée : son adresse n'est gardée nulle part, cette page ne montre jamais d'adresse.</p>
+</main>
+<script>
+// L'URL /exec du releveur Google (REACH_OUT/google/Code.js). Elle ne donne que des chiffres.
+const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxFIcQbe0YiCqhT-b5meLjoWqUdL1STK0HKSRrvemZGF-1Q8PmZJDP47YV82Ugko8wVXw/exec?p='
+const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0)
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
+const date = (d) => (d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '')
+
+async function charger() {
+  const maj = document.getElementById('maj'), box = document.getElementById('camps')
+  try {
+    const r = await fetch(GOOGLE_URL + '/stats', { cache: 'no-store' })
+    const camps = await r.json()
+    if (!Array.isArray(camps)) throw new Error(camps.error || 'réponse inattendue')
+    maj.textContent = 'Mis à jour le ' + new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })
+    if (!camps.length) { box.innerHTML = '<p class="vide">Aucune newsletter envoyée pour l’instant.</p>'; return }
+    box.innerHTML = camps.slice().reverse().map((c) => `
+      <section class="camp">
+        <span class="lbl">${esc(date(c.creee))}</span>
+        <h2>${esc(c.campagne)}</h2>
+        <p class="obj">${esc(c.objet)}</p>
+        <div class="chiffres">
+          <div><div class="n">${c.envoyes}<small>/ ${c.destinataires}</small></div><span class="lbl">Envoyés</span></div>
+          <div><div class="n">${c.recus}</div><span class="lbl">Reçus</span></div>
+          <div><div class="n">${c.ouverts}<small>${pct(c.ouverts, c.recus)} %</small></div><span class="lbl">Ouverts</span></div>
+          <div><div class="n">${c.desinscrits}<small>${pct(c.desinscrits, c.recus)} %</small></div><span class="lbl">Désinscrits, effacés</span></div>
+          <div><div class="n">${c.rejetes}</div><span class="lbl">Adresses rejetées</span></div>
+        </div>
+        <div class="barre" title="Envoi : ${pct(c.envoyes, c.destinataires)} %"><i style="width:${pct(c.envoyes, c.destinataires)}%"></i></div>
+      </section>`).join('')
+  } catch (e) {
+    maj.textContent = ''
+    box.innerHTML = '<p class="err">Chiffres indisponibles pour l’instant (' + esc(e.message) + ').</p>'
+  }
+}
+charger()
+setInterval(charger, 60_000)
+</script>
+</body>
+</html>
