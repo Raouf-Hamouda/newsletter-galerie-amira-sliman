@@ -71,6 +71,7 @@ iframe{width:390px;max-width:100%;height:680px;border:1px solid var(--line);bord
 // L'URL /exec du releveur Google (REACH_OUT/google/Code.js) suivie de ?p= ; elle ne donne que des chiffres.
 const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxFIcQbe0YiCqhT-b5meLjoWqUdL1STK0HKSRrvemZGF-1Q8PmZJDP47YV82Ugko8wVXw/exec?p='
 const $ = (s) => document.querySelector(s)
+const OUVERTURES = false
 const pct = (a, b) => (b ? (Math.round((a / b) * 1000) / 10).toLocaleString('fr-FR') + ' %' : '')
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 const date = (d) => (d ? new Date(d).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }) : '')
@@ -85,7 +86,9 @@ async function charger() {
     const env = somme(camps, 'envoyes'), dest = somme(camps, 'destinataires'), rec = somme(camps, 'recus'), ouv = somme(camps, 'ouverts'), des = somme(camps, 'desinscrits')
     $('#k-env').textContent = env; $('#k-env-s').textContent = dest ? `sur ${dest} prévus` : ''
     $('#k-rec').textContent = rec
-    $('#k-ouv').textContent = ouv; $('#k-ouv-s').textContent = pct(ouv, rec) ? pct(ouv, rec) + ' des reçus' : ''
+    // Ouvertures coupees (OPENS=off dans REACH OUT) : l'image de comptage sur script.google.com faisait rejeter le mail par Free.
+    if (OUVERTURES) { $('#k-ouv').textContent = ouv; $('#k-ouv-s').textContent = pct(ouv, rec) ? pct(ouv, rec) + ' des reçus' : '' }
+    else { $('#k-ouv').textContent = '–'; $('#k-ouv-s').textContent = 'pas mesurées pour l’instant' }
     $('#k-des').textContent = des; $('#k-des-s').textContent = (pct(des, rec) ? pct(des, rec) + ' · ' : '') + 'adresses effacées'
     $('#k-rej').textContent = somme(camps, 'rejetes')
     $('#camps').innerHTML = camps.length ? camps.slice().reverse().map((c) => `<tr>

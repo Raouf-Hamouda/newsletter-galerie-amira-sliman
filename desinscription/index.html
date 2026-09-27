@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light only">
+<meta name="robots" content="noindex">
+<title>Se désinscrire · Galerie Amira Sliman</title>
+<style>
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-light.ttf) format('truetype');font-weight:300}
+@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-bold.ttf) format('truetype');font-weight:700}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#fff;color:#111;font-family:AG,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:300;-webkit-font-smoothing:antialiased}
+.b{max-width:460px;margin:18vh auto 0;padding:0 20px}
+.k{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#757575}
+h1{font-weight:700;font-size:30px;letter-spacing:-.02em;margin:18px 0 14px}
+p{font-size:16px;line-height:1.45}
+button{margin-top:26px;font:inherit;font-size:15px;font-weight:400;color:#111;background:none;border:0;border-bottom:1px solid #111;padding:0 0 2px;cursor:pointer}
+button:disabled{opacity:.4;cursor:default}
+</style>
+</head>
+<body>
+<div class="b">
+  <div class="k">Galerie Amira Sliman</div>
+  <h1 id="t">Un instant…</h1>
+  <p id="p"></p>
+  <button id="ok" hidden>Confirmer la désinscription</button>
+</div>
+<script>
+// Le releveur Google (REACH_OUT/google/Code.js). Le mail ne pointe que vers cette page ; c'est elle qui parle au releveur.
+const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxFIcQbe0YiCqhT-b5meLjoWqUdL1STK0HKSRrvemZGF-1Q8PmZJDP47YV82Ugko8wVXw/exec?p='
+const q = new URLSearchParams(location.search), r = q.get('r') || '', s = q.get('s') || ''
+const $ = (id) => document.getElementById(id)
+const dire = (t, p) => { $('t').textContent = t; $('p').textContent = p }
+const appel = async (ok) => (await fetch(`${GOOGLE_URL}/u/${encodeURIComponent(r)}/${encodeURIComponent(s)}&json=1${ok ? '&ok=1' : ''}`)).json()
+const fait = () => dire('C’est fait', 'Vous ne recevrez plus les nouvelles de la galerie. Votre adresse a été effacée.')
+;(async () => {
+  try {
+    const j = await appel(false)
+    if (j.etat === 'fait') return fait()
+    if (j.etat !== 'a_confirmer') return dire('Lien invalide', 'Ce lien de désinscription n’est pas reconnu.')
+    dire('Se désinscrire', `Ne plus recevoir les nouvelles de la Galerie Amira Sliman à l’adresse ${j.email} ?`)
+    $('ok').hidden = false
+  } catch { dire('Un souci', 'La page n’a pas pu joindre le serveur. Réessayez dans un instant, ou répondez « STOP » au mail.') }
+})()
+$('ok').onclick = async () => {
+  $('ok').disabled = true
+  try { const j = await appel(true); if (j.etat === 'fait') { $('ok').hidden = true; fait() } else throw 0 }
+  catch { $('ok').disabled = false; dire('Un souci', 'La désinscription n’est pas passée. Réessayez, ou répondez « STOP » au mail.') }
+}
+</script>
+</body>
+</html>
