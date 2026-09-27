@@ -5,93 +5,101 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="light only">
 <meta name="robots" content="noindex">
-<title>Newsletter · Galerie Amira Sliman</title>
+<title>REACH OUT · Tableau</title>
 <style>
-@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-light.ttf) format('truetype');font-weight:300}
-@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-roman.ttf) format('truetype');font-weight:400}
-@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-bold.ttf) format('truetype');font-weight:700}
-@font-face{font-family:AG;src:url(https://gargantua-paris.github.io/fonts/Akzidenz-grotesk-black.ttf) format('truetype');font-weight:900}
-:root{--ink:#111;--paper:#fff;--mute:#757575;--soft:#3b3b3b;--line:#e3e3e3;--m:clamp(16px,5vw,72px)}
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:AG,"Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:300;color:var(--ink);background:var(--paper);
-  line-height:1.42;font-size:clamp(15px,1.05vw,17px);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-a{color:inherit}
-.lbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
-header{display:flex;justify-content:space-between;gap:16px;padding:clamp(26px,4vh,50px) var(--m) 0}
-main{padding:0 var(--m) 80px}
-h1{margin-top:clamp(48px,9vh,110px);font-weight:900;letter-spacing:-.035em;line-height:.86;font-size:clamp(48px,11vw,150px)}
-.maj{margin-top:18px;color:var(--soft)}
-.camp{margin-top:clamp(48px,8vh,96px);padding-top:16px;border-top:1px solid var(--line)}
-.camp h2{margin-top:8px;font-weight:700;font-size:clamp(20px,2vw,28px);letter-spacing:-.015em}
-.camp .obj{color:var(--soft);margin-top:4px}
-.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:28px clamp(20px,3vw,48px);margin-top:32px}
-.n{font-weight:900;font-size:clamp(40px,5vw,72px);letter-spacing:-.03em;line-height:.9}
-.n small{font-weight:400;font-size:.36em;letter-spacing:0;color:var(--soft);margin-left:.35em}
-.chiffres .lbl{margin-top:10px;display:block}
-.barre{height:2px;background:var(--line);margin-top:30px;position:relative}
-.barre i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
-.vide,.err{margin-top:40px;color:var(--soft)}
-.apercu{margin-top:clamp(64px,10vh,120px);padding-top:16px;border-top:1px solid var(--line)}
-.cadre{margin-top:24px;display:flex;gap:clamp(20px,4vw,56px);align-items:flex-start;flex-wrap:wrap}
-iframe{border:1px solid var(--line);background:#fff}
-.tel{width:390px;max-width:100%;height:760px}
-.ord{width:640px;max-width:100%;height:760px}
-.note{margin-top:48px;max-width:60ch;color:var(--soft);font-size:14px}
-@media(max-width:700px){.ord{display:none}.tel{width:100%}}
+/* meme DA que la plateforme REACH OUT (app/index.html) */
+:root{--bg:#f7f7f5;--card:#fff;--txt:#16161a;--muted:#6b6b74;--line:#e6e6e2;--accent:#1f3d2f;--ok:#2e7d4f;--bad:#b3261e;--warn:#b26a00}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.5 -apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;padding-block:0 48px;font-variant-numeric:tabular-nums}
+header{display:flex;align-items:center;gap:18px;padding:12px 24px;border-bottom:1px solid var(--line);background:#fff;position:sticky;top:0;z-index:2;flex-wrap:wrap}
+.logo{font-weight:700;letter-spacing:.1em}
+.boite{margin-left:auto;color:var(--muted);display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.dot{width:8px;height:8px;border-radius:50%;background:#bbb;flex:none}.dot.ok{background:var(--ok)}.dot.bad{background:var(--bad)}
+main{max-width:1240px;margin:0 auto;padding:24px 16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;min-width:0}
+h2{font-size:15px;font-weight:600;margin:0 0 12px}
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:900px){.kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi .l{color:var(--muted);font-size:13px}
+.kpi .v{font-size:28px;font-weight:600;margin-top:4px;line-height:1.1}
+.kpi .s{color:var(--muted);font-size:12px;margin-top:2px}
+.grid{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;margin-top:20px}
+@media(max-width:900px){.grid{grid-template-columns:1fr}}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+td.wrap{white-space:normal}
+th{color:var(--muted);font-weight:500}
+.scroll{overflow-x:auto}
+.barre{height:6px;background:var(--line);border-radius:3px;overflow:hidden;min-width:70px}
+.barre i{display:block;height:100%;background:var(--accent)}
+.muted{color:var(--muted)}.ok{color:var(--ok)}.bad{color:var(--bad)}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:0 0 10px}
+label.chk{display:flex;gap:6px;align-items:center;color:var(--muted)}
+iframe{width:390px;max-width:100%;height:680px;border:1px solid var(--line);border-radius:8px;background:#fff}
+.note{color:var(--muted);font-size:12px;margin-top:16px}
 </style>
 </head>
 <body>
-<header><span class="lbl">Galerie Amira Sliman</span><span class="lbl">Newsletter</span></header>
+<header>
+  <span class="logo">REACH OUT</span>
+  <span class="muted">Tableau · Galerie Amira Sliman</span>
+  <span class="boite"><span class="dot" id="dot"></span><span id="maj">chargement…</span></span>
+</header>
 <main>
-  <h1>Chiffres.</h1>
-  <p class="maj" id="maj">Chargement…</p>
-  <div id="camps"></div>
+  <div class="kpis">
+    <div class="card kpi"><div class="l">Envoyés</div><div class="v" id="k-env">–</div><div class="s" id="k-env-s"></div></div>
+    <div class="card kpi"><div class="l">Reçus</div><div class="v" id="k-rec">–</div><div class="s">envoyés et non rejetés</div></div>
+    <div class="card kpi"><div class="l">Ouverts</div><div class="v" id="k-ouv">–</div><div class="s" id="k-ouv-s"></div></div>
+    <div class="card kpi"><div class="l">Désinscrits</div><div class="v" id="k-des">–</div><div class="s" id="k-des-s">adresses effacées</div></div>
+    <div class="card kpi"><div class="l">Rejetés</div><div class="v" id="k-rej">–</div><div class="s">adresses introuvables</div></div>
+  </div>
 
-  <section class="apercu">
-    <span class="lbl">Aperçu de la newsletter</span>
-    <div class="cadre">
-      <div><span class="lbl">Téléphone</span><br><iframe class="tel" src="newsletter.html" title="Aperçu téléphone" loading="lazy"></iframe></div>
-      <div><span class="lbl">Ordinateur</span><br><iframe class="ord" src="newsletter.html" title="Aperçu ordinateur" loading="lazy"></iframe></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Campagnes</h2>
+      <div class="scroll"><table><thead><tr><th>Date</th><th>Campagne</th><th>Envoi</th><th>Reçus</th><th>Ouverts</th><th>Désinscrits</th><th>Rejetés</th></tr></thead><tbody id="camps"><tr><td colspan="7" class="muted">…</td></tr></tbody></table></div>
+      <p class="note">Ouvertures : une estimation (Apple Mail ouvre les images tout seul, qui bloque les images ne compte pas). Une personne qui se désinscrit est effacée partout ; cette page ne montre jamais d'adresse.</p>
     </div>
-  </section>
-
-  <p class="note">Ouvertures : une estimation. Apple Mail charge les images tout seul et compte comme ouvert ; qui bloque les images ne compte pas.
-  Une personne qui se désinscrit est effacée : son adresse n'est gardée nulle part, cette page ne montre jamais d'adresse.</p>
+    <div class="card">
+      <h2>Aperçu de la newsletter</h2>
+      <div class="row"><label class="chk"><input type="radio" name="larg" value="390" checked> téléphone</label><label class="chk"><input type="radio" name="larg" value="640"> ordinateur</label></div>
+      <iframe id="cadre" src="newsletter.html" title="Aperçu newsletter" loading="lazy"></iframe>
+    </div>
+  </div>
 </main>
 <script>
-// L'URL /exec du releveur Google (REACH_OUT/google/Code.js). Elle ne donne que des chiffres.
+// L'URL /exec du releveur Google (REACH_OUT/google/Code.js) suivie de ?p= ; elle ne donne que des chiffres.
 const GOOGLE_URL = 'https://script.google.com/macros/s/AKfycbxFIcQbe0YiCqhT-b5meLjoWqUdL1STK0HKSRrvemZGF-1Q8PmZJDP47YV82Ugko8wVXw/exec?p='
-const pct = (a, b) => (b ? Math.round((a / b) * 1000) / 10 : 0)
+const $ = (s) => document.querySelector(s)
+const pct = (a, b) => (b ? (Math.round((a / b) * 1000) / 10).toLocaleString('fr-FR') + ' %' : '')
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
-const date = (d) => (d ? new Date(d).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) : '')
+const date = (d) => (d ? new Date(d).toLocaleDateString('fr-FR', { day: '2-digit', month: 'short', year: 'numeric' }) : '')
+const somme = (l, k) => l.reduce((t, c) => t + (Number(c[k]) || 0), 0)
 
 async function charger() {
-  const maj = document.getElementById('maj'), box = document.getElementById('camps')
   try {
-    const r = await fetch(GOOGLE_URL + '/stats', { cache: 'no-store' })
-    const camps = await r.json()
+    const camps = await (await fetch(GOOGLE_URL + '/stats', { cache: 'no-store' })).json()
     if (!Array.isArray(camps)) throw new Error(camps.error || 'réponse inattendue')
-    maj.textContent = 'Mis à jour le ' + new Date().toLocaleString('fr-FR', { dateStyle: 'long', timeStyle: 'short' })
-    if (!camps.length) { box.innerHTML = '<p class="vide">Aucune newsletter envoyée pour l’instant.</p>'; return }
-    box.innerHTML = camps.slice().reverse().map((c) => `
-      <section class="camp">
-        <span class="lbl">${esc(date(c.creee))}</span>
-        <h2>${esc(c.campagne)}</h2>
-        <p class="obj">${esc(c.objet)}</p>
-        <div class="chiffres">
-          <div><div class="n">${c.envoyes}<small>/ ${c.destinataires}</small></div><span class="lbl">Envoyés</span></div>
-          <div><div class="n">${c.recus}</div><span class="lbl">Reçus</span></div>
-          <div><div class="n">${c.ouverts}<small>${pct(c.ouverts, c.recus)} %</small></div><span class="lbl">Ouverts</span></div>
-          <div><div class="n">${c.desinscrits}<small>${pct(c.desinscrits, c.recus)} %</small></div><span class="lbl">Désinscrits, effacés</span></div>
-          <div><div class="n">${c.rejetes}</div><span class="lbl">Adresses rejetées</span></div>
-        </div>
-        <div class="barre" title="Envoi : ${pct(c.envoyes, c.destinataires)} %"><i style="width:${pct(c.envoyes, c.destinataires)}%"></i></div>
-      </section>`).join('')
+    $('#dot').className = 'dot ok'
+    $('#maj').textContent = 'à jour ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
+    const env = somme(camps, 'envoyes'), dest = somme(camps, 'destinataires'), rec = somme(camps, 'recus'), ouv = somme(camps, 'ouverts'), des = somme(camps, 'desinscrits')
+    $('#k-env').textContent = env; $('#k-env-s').textContent = dest ? `sur ${dest} prévus` : ''
+    $('#k-rec').textContent = rec
+    $('#k-ouv').textContent = ouv; $('#k-ouv-s').textContent = pct(ouv, rec) ? pct(ouv, rec) + ' des reçus' : ''
+    $('#k-des').textContent = des; $('#k-des-s').textContent = (pct(des, rec) ? pct(des, rec) + ' · ' : '') + 'adresses effacées'
+    $('#k-rej').textContent = somme(camps, 'rejetes')
+    $('#camps').innerHTML = camps.length ? camps.slice().reverse().map((c) => `<tr>
+      <td>${esc(date(c.creee))}</td><td class="wrap"><b>${esc(c.campagne)}</b><br><span class="muted">${esc(c.objet)}</span></td>
+      <td><div class="barre" title="${c.envoyes}/${c.destinataires}"><i style="width:${c.destinataires ? (100 * c.envoyes) / c.destinataires : 0}%"></i></div><span class="muted">${c.envoyes}/${c.destinataires}</span></td>
+      <td>${c.recus}</td><td>${c.ouverts} <span class="muted">${pct(c.ouverts, c.recus)}</span></td>
+      <td>${c.desinscrits} <span class="muted">${pct(c.desinscrits, c.recus)}</span></td><td class="${c.rejetes ? 'bad' : ''}">${c.rejetes}</td></tr>`).join('')
+      : '<tr><td colspan="7" class="muted">Aucune newsletter envoyée pour l’instant.</td></tr>'
   } catch (e) {
-    maj.textContent = ''
-    box.innerHTML = '<p class="err">Chiffres indisponibles pour l’instant (' + esc(e.message) + ').</p>'
+    $('#dot').className = 'dot bad'
+    $('#maj').textContent = 'chiffres indisponibles (' + e.message + ')'
   }
 }
+document.addEventListener('change', (e) => { if (e.target.name === 'larg') $('#cadre').style.width = e.target.value + 'px' })
 charger()
 setInterval(charger, 60_000)
 </script>
