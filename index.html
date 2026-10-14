@@ -46,6 +46,7 @@ iframe{width:390px;max-width:100%;height:680px;border:1px solid var(--line);bord
   <span class="boite"><span class="dot" id="dot"></span><span id="maj">chargement…</span></span>
 </header>
 <main>
+  <div style="margin:0 0 12px"><select id="choix" style="font:inherit;padding:6px 10px;border:1px solid #ddd;border-radius:8px;background:#fff"><option value="">Toutes les campagnes</option></select></div>
   <div class="kpis">
     <div class="card kpi"><div class="l">Envoyés</div><div class="v" id="k-env">–</div><div class="s" id="k-env-s"></div></div>
     <div class="card kpi"><div class="l">Reçus</div><div class="v" id="k-rec">–</div><div class="s">envoyés et non rejetés</div></div>
@@ -79,8 +80,11 @@ const somme = (l, k) => l.reduce((t, c) => t + (Number(c[k]) || 0), 0)
 
 async function charger() {
   try {
-    const camps = await (await fetch(GOOGLE_URL + '/stats', { cache: 'no-store' })).json()
-    if (!Array.isArray(camps)) throw new Error(camps.error || 'réponse inattendue')
+    const toutes = await (await fetch(GOOGLE_URL + '/stats', { cache: 'no-store' })).json()
+    if (!Array.isArray(toutes)) throw new Error(toutes.error || 'réponse inattendue')
+    // chiffres par campagne : le menu au-dessus des cartes (14 oct 2026)
+    const sel = $('#choix'); if (sel.options.length < 2) for (const c of toutes.slice().reverse()) { const o = document.createElement('option'); o.value = c.creee; o.textContent = `${c.campagne} · ${date(c.creee)}`; sel.appendChild(o) }
+    const camps = sel.value ? toutes.filter((c) => c.creee === sel.value) : toutes
     $('#dot').className = 'dot ok'
     $('#maj').textContent = 'à jour ' + new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })
     const mesurees = camps.filter((c) => new Date(c.creee) >= new Date('2026-10-14'))
@@ -105,6 +109,7 @@ async function charger() {
 }
 document.addEventListener('change', (e) => { if (e.target.name === 'larg') $('#cadre').style.width = e.target.value + 'px' })
 charger()
+$('#choix').addEventListener('change', charger)
 setInterval(charger, 60_000)
 </script>
 </body>
